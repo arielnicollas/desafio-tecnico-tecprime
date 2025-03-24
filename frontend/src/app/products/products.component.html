@@ -1,0 +1,19 @@
+<div class="container">
+    <h2>Produtos</h2>
+    <div class="row">
+      @for (product of products; track product) {
+        <div class="col-md-4">
+          <div class="card mb-4">
+            <img [src]="product.image" class="card-img-top" alt="{{ product.name }}">
+            <div class="card-body">
+              <h5 class="card-title">{{ product.name }}</h5>
+              <p class="card-text">{{ product.description }}</p>
+              <p>R$ {{ product.price }}</p>
+              <p>Estoque: {{ product.stock }}</p>
+              <button class="btn btn-primary" (click)="addToCart(product)">Adicionar ao Carrinho</button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
