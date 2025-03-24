@@ -1,27 +1,58 @@
+<div class="container mt-4">
+  <h2>Checkout</h2>
 
-<div class="container">
-    <h2>Checkout</h2>
-    <form (ngSubmit)="submit()">
-      <div class="mb-3">
-        <label>Nome</label>
-        <input type="text" class="form-control" [(ngModel)]="order.name" name="name" required>
-      </div>
-      <div class="mb-3">
-        <label>E-mail</label>
-        <input type="email" class="form-control" [(ngModel)]="order.email" name="email" required>
-      </div>
-      <div class="mb-3">
-        <label>Endereço</label>
-        <input type="text" class="form-control" [(ngModel)]="order.address" name="address" required>
-      </div>
-      <div class="mb-3">
-        <label>Forma de Pagamento</label>
-        <select class="form-control" [(ngModel)]="order.paymentMethod" name="paymentMethod">
-          <option value="Pix">Pix</option>
-          <option value="Cartão">Cartão</option>
-          <option value="Boleto">Boleto</option>
-        </select>
-      </div>
-      <button type="submit" class="btn btn-success">Finalizar Compra</button>
-    </form>
-  </div>
+  <div class="mb-4">
+    <h4>Produtos no Carrinho</h4>
+    @if (cartItems$ | async; as items) {
+      @if (items.length === 0) {
+        <div class="alert alert-warning">
+          Seu carrinho está vazio.
+        </div>
+      }
+      @if (items.length > 0) {
+        <ul class="list-group">
+          @for (item of items; track item.productId) {
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <div>
+                <strong>{{ item.name }}</strong> - R$ {{ item.price.toFixed(2) }}
+              </div>
+              <div class="d-flex align-items-center">
+                <input type="number" class="form-control me-2" style="width: 80px;" [ngModel]="item.quantity" (ngModelChange)="updateQuantity(item.productId, $event)" min="0">
+                <button class="btn btn-danger btn-sm" (click)="removeFromCart(item.productId)">Remover</button>
+              </div>
+            </li>
+          }
+          
+          <li class="list-group-item d-flex justify-content-between align-items-center font-weight-bold">
+            <span>Total</span>
+            <span>R$ {{ (totalPrice$ | async)?.toFixed(2) }}</span>
+          </li>
+        </ul>
+      }
+    }  </div>
+
+  
+  <form (ngSubmit)="submit()">
+    <div class="mb-3">
+      <label for="name" class="form-label">Nome</label>
+      <input type="text" class="form-control" id="name" [(ngModel)]="order.name" name="name" required>
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">E-mail</label>
+      <input type="email" class="form-control" id="email" [(ngModel)]="order.email" name="email" required>
+    </div>
+    <div class="mb-3">
+      <label for="address" class="form-label">Endereço</label>
+      <input type="text" class="form-control" id="address" [(ngModel)]="order.address" name="address" required>
+    </div>
+    <div class="mb-3">
+      <label for="paymentMethod" class="form-label">Forma de Pagamento</label>
+      <select class="form-select" id="paymentMethod" [(ngModel)]="order.paymentMethod" name="paymentMethod" required>
+        <option value="Pix">Pix</option>
+        <option value="Cartão de Crédito">Cartão de Crédito</option>
+        <option value="Boleto">Boleto</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-success" [disabled]="(cartItems$ | async)?.length === 0">Finalizar Compra</button>
+  </form>
+</div>

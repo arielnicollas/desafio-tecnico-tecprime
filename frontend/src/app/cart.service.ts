@@ -17,11 +17,11 @@ export class CartService {
 
   constructor() {
     
-    const savedCart = localStorage.getItem('cart');
-    if (savedCart) {
-      this.cartItems = JSON.parse(savedCart);
-      this.cartItemsSubject.next(this.cartItems);
-    }
+    // const savedCart = localStorage.getItem('cart');
+    // if (savedCart) {
+    //   this.cartItems = JSON.parse(savedCart);
+    //   this.cartItemsSubject.next(this.cartItems);
+    // }
   }
 
   addToCart(product: any) {
@@ -72,6 +72,6 @@ export class CartService {
 
   private updateCart() {
     this.cartItemsSubject.next([...this.cartItems]);
-    localStorage.setItem('cart', JSON.stringify(this.cartItems)); 
+    // localStorage.setItem('cart', JSON.stringify(this.cartItems)); 
   }
 }
