@@ -1,19 +1,30 @@
-Pré-requisitos
+#🛒 Nome do Projeto - E-commerce Full Stack
 
-Docker e Docker Compose instalados.
+Uma aplicação completa de E-commerce, incluindo um catálogo de produtos (Backend) e uma interface de usuário (Frontend), utilizando arquitetura de microserviços em Docker.
 
-Inicie os Contêineres com Docker Compose.
+✨ Tecnologias
 
-O front-end estará disponível em http://localhost:4200.
+Este projeto Full Stack utiliza o seguinte stack:
 
-O back-end estará disponível em http://localhost:3000.
+Componente	Tecnologia	Observação
 
-Popular o Banco de Dados: 
+Backend (API)	NestJS	Framework Node.js para API RESTful.
+Frontend (UI)	Angular	Framework para interface web.
+Banco de Dados	MySQL	Persistência de dados (Produtos e Pedidos).
+Containerização	Docker & Docker Compose	Orquestração do ambiente.
 
-http://localhost:3000/products/populate
+💻 Pré-Requisitos
 
-Endpoints Disponíveis (Back-end)
+Para executar este projeto localmente, você precisa ter as seguintes ferramentas instaladas:
 
-GET /products
+Docker
 
-POST /orders
+Docker Compose
+
+Node.js e npm (Necessário para gerenciamento de dependências locais, se não for rodar o front e back totalmente em Docker)
+
+🛠️ Instalação e Execução
+Siga os passos abaixo para iniciar todos os serviços (Frontend, Backend e Banco de Dados) usando Docker Compose.
+
+1. Iniciar os Contêineres
+Navegue até o diretório raiz do projeto e inicie os serviços definidos no docker-compose.yml:
